@@ -36,6 +36,27 @@
         transform: translateY(-50%);
       }
 
+      .gap {
+        width: 30px;
+        height: 32px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        position: relative;
+        z-index: 2;
+
+        .gap-icon {
+          color: #000;
+          background: #ffffff;
+          border: 1px solid #ccc;
+          border-radius: 50%;
+          padding: 3px;
+          font-size: 12px;
+          display: inline-block;
+        }
+      }
+
       .page {
         position: relative;
         z-index: 1;
@@ -58,13 +79,16 @@
           margin-top: 2px;
         }
 
-        .dots {
-          margin-left: 5px;
-          color: #69728a;
+        .div-dots {
+          .dots {
+            margin-left: 5px;
+            color: #69728a;
+          }
         }
       }
 
       .default {
+        margin-left: 40px;
         color: #000;
         background: #fff;
       }
@@ -80,6 +104,93 @@
           background: #fff;
           color: #000;
         }
+      }
+    }
+  }
+}
+
+.page-preview {
+  padding: 5px 12px;
+  border: 1px solid #e1e1e1;
+  border-radius: 7px;
+  background: #eaedf1;
+  color: #758095;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 14px;
+
+  .dots {
+    margin-left: 5px;
+    color: #69728a;
+  }
+}
+
+.cdk-drag-preview {
+  transition: none !important;
+}
+
+.custom-context-menu {
+  width: 240px;
+  position: fixed;
+  z-index: 1000;
+  background: white;
+  border: 1px solid #ccc;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 15px;
+
+  .title-div {
+    background: #fbfafc;
+    padding: 10px;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    font-weight: 600;
+    border-bottom: 1px solid #dddddd;
+  }
+
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    li {
+      padding: 10px;
+      cursor: pointer;
+
+      span {
+        margin-left: 8px;
+        font-weight: 400;
+      }
+
+      .blue-icon {
+        color: #2e73e2;
+      }
+
+      .default-icon {
+        color: #a6acb9;
+      }
+
+      &:hover {
+        background: #f0f0f0;
+      }
+    }
+  }
+
+  .footer {
+    padding: 0px 10px;
+
+    .delete-div {
+      padding: 10px;
+      color: #f2777b;
+      border-top: 1px solid #dddddd;
+
+      span {
+        margin-left: 8px;
+        font-weight: 400;
+      }
+
+      &:hover {
+        cursor: pointer;
       }
     }
   }

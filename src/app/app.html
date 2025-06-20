@@ -1,23 +1,126 @@
 <div class="container">
   <div class="nav-bar">
     <div class="pages">
-      <div class="line"></div>
-
       <div
-        class="page"
-        [ngClass]="{ 'active': page.active }"
-        (click)="onSelectPage(page.pageId)"
-        *ngFor="let page of pages"
+        class="pages"
+        cdkDropList
+        cdkDropListOrientation="horizontal"
+        (cdkDropListDropped)="drop($event)"
       >
-        <i class="fa-regular fa-{{page.icon}} fa-xs"></i>
-        <span>{{page.title}}</span>
-        <i *ngIf="page.active" class="dots fa-solid fa-ellipsis-vertical"></i>
-      </div>
+        <div class="line"></div>
 
-      <div class="page default">
-        <i class="fa-regular fa-plus fa-xs"></i>
-        <span>Add page</span>
+        <ng-container *ngFor="let page of pages; let i = index">
+          <div
+            *ngIf="i !== 0"
+            class="gap"
+            (mouseenter)="onGapHover(i)"
+            (mouseleave)="onGapLeave()"
+            (click)="onGapClick($event,  $event.target)"
+          >
+            <i *ngIf="hoveredGap === i" class="fa-solid fa-plus gap-icon"></i>
+          </div>
+
+          <div
+            class="page"
+            cdkDrag
+            cdkDragLockAxis="x"
+            [ngClass]="{ active: page.active }"
+            (click)="onSelectPage(page.pageId)"
+          >
+            <i class="fa-regular fa-{{ page.icon }} fa-xs"></i>
+            <span>{{ page.title }}</span>
+            <div class="div-dots">
+              <i
+                *ngIf="page.active"
+                class="dots fa-solid fa-ellipsis-vertical"
+                (contextmenu)="onRightClick($event, page, $event.target)"
+              ></i>
+            </div>
+
+            <ng-template cdkDragPreview>
+              <div class="page page-preview">
+                <i class="fa-regular fa-{{ page.icon }} fa-xs"></i>
+                <span>{{ page.title }}</span>
+                <i
+                  *ngIf="page.active"
+                  class="dots fa-solid fa-ellipsis-vertical"
+                ></i>
+              </div>
+            </ng-template>
+          </div>
+        </ng-container>
+
+        <div class="page default" (click)="onGapClick($event, $event.target)">
+          <i class="fa-regular fa-plus fa-xs"></i>
+          <span>Add page</span>
+        </div>
       </div>
+    </div>
+  </div>
+</div>
+
+<div
+  class="custom-context-menu"
+  #contextMenu
+  *ngIf="contextMenuVisible"
+  [ngStyle]="{ top: contextMenuY + 'px', left: contextMenuX + 'px' }"
+>
+  <div class="title-div">
+    <span>Settings</span>
+  </div>
+  <ul>
+    <li>
+      <i class="blue-icon fa-solid fa-flag fa-sm"></i>
+      <span>Set as first page</span>
+    </li>
+    <li>
+      <i class="default-icon fa-solid fa-pencil fa-sm"></i>
+      <span>Rename</span>
+    </li>
+    <li>
+      <i class="default-icon fa-regular fa-clipboard fa-sm"></i>
+      <span>Copy</span>
+    </li>
+    <li>
+      <i class="default-icon fa-regular fa-clone fa-sm"></i>
+      <span>Duplicate</span>
+    </li>
+  </ul>
+  <div class="footer">
+    <div class="delete-div">
+      <i class="danger-icon fa-solid fa-trash fa-sm"></i>
+      <span>Delete</span>
+    </div>
+  </div>
+</div>
+
+<div
+  class="custom-context-menu"
+  #contextMenuAddPage
+  *ngIf="contextMenuVisibleAddPage"
+  [ngStyle]="{ top: contextMenuY + 'px', left: contextMenuX + 'px' }"
+>
+  <div class="title-div">
+    <span>Choose a page type</span>
+  </div>
+  <ul>
+    <li>
+      <i class="blue-icon fa-regular fa-file fa-sm"></i>
+      <span>Form</span>
+    </li>
+    <li>
+      <i class="fa-solid fa-right-to-bracket fa-sm"></i>
+      <span>Login</span>
+    </li>
+    <li>
+      <i class="fa-solid fa-magnifying-glass fa-sm"></i>
+      <span>Review</span>
+    </li>
+  </ul>
+  <div class="footer">
+    <div class="delete-div">
+      <i class="danger-icon fa-solid fa-close fa-sm"></i>
+      <span>Cancel</span>
     </div>
   </div>
 </div>
