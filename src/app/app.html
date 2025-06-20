@@ -1,0 +1,23 @@
+<div class="container">
+  <div class="nav-bar">
+    <div class="pages">
+      <div class="line"></div>
+
+      <div
+        class="page"
+        [ngClass]="{ 'active': page.active }"
+        (click)="onSelectPage(page.pageId)"
+        *ngFor="let page of pages"
+      >
+        <i class="fa-regular fa-{{page.icon}} fa-xs"></i>
+        <span>{{page.title}}</span>
+        <i *ngIf="page.active" class="dots fa-solid fa-ellipsis-vertical"></i>
+      </div>
+
+      <div class="page default">
+        <i class="fa-regular fa-plus fa-xs"></i>
+        <span>Add page</span>
+      </div>
+    </div>
+  </div>
+</div>
