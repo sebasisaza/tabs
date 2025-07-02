@@ -3,9 +3,6 @@
     <div class="pages">
       <div
         class="pages"
-        cdkDropList
-        cdkDropListOrientation="horizontal"
-        (cdkDropListDropped)="drop($event)"
       >
         <div class="line"></div>
 
@@ -33,7 +30,7 @@
               <i
                 *ngIf="page.active"
                 class="dots fa-solid fa-ellipsis-vertical"
-                (contextmenu)="onRightClick($event, page, $event.target)"
+                (click)="onClick($event, page, $event.target)"
               ></i>
             </div>
 

@@ -1,8 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, ElementRef, HostListener, ViewChild } from '@angular/core';
 import {
-  CdkDragDrop,
-  DragDropModule,
   moveItemInArray,
 } from '@angular/cdk/drag-drop';
 
@@ -25,7 +23,7 @@ enum icons {
 
 @Component({
   selector: 'app-root',
-  imports: [CommonModule, DragDropModule],
+  imports: [CommonModule],
   templateUrl: './app.html',
   styleUrl: './app.scss',
 })
@@ -34,7 +32,7 @@ export class App {
   @ViewChild('contextMenuVisibleAddPage')
   contextMenuRefAddPage!: ElementRef;
 
-  protected title = 'fillout';
+  protected title = 'Tabs';
 
   pages: Page[] = [
     {
@@ -84,11 +82,7 @@ export class App {
     this.pages.forEach((page) => (page.active = page.pageId === pageId));
   }
 
-  public drop(event: CdkDragDrop<any[]>) {
-    moveItemInArray(this.pages, event.previousIndex, event.currentIndex);
-  }
-
-  public onRightClick(
+  public onClick(
     event: MouseEvent,
     page: Page,
     target: EventTarget | null
